@@ -1,0 +1,59 @@
+Código 
+class Tarefa:
+    def __init__(self, descricao):
+        self.descricao = descricao
+        self.proxima = None
+
+class ListaEncadeada:
+    def __init__(self):
+        self.cabeca = None
+    
+    def adicionar_tarefa(self, descricao):
+        nova_tarefa = Tarefa(descricao)
+        if not self.cabeca:
+            self.cabeca = nova_tarefa
+        else:
+            atual = self.cabeca
+            while atual.proxima:
+                atual = atual.proxima
+            atual.proxima = nova_tarefa
+    
+    def remover_tarefa(self, descricao):
+        if not self.cabeca:
+            print("A lista está vazia.")
+            return
+        
+        if self.cabeca.descricao == descricao:
+            self.cabeca = self.cabeca.proxima
+            return
+        
+        atual = self.cabeca
+        while atual.proxima and atual.proxima.descricao != descricao:
+            atual = atual.proxima
+        
+        if atual.proxima:
+            atual.proxima = atual.proxima.proxima
+        else:
+            print("Tarefa não encontrada.")
+    
+    def exibir_tarefas(self):
+        if not self.cabeca:
+            print("Nenhuma tarefa na lista.")
+            return
+        
+        atual = self.cabeca
+        while atual:
+            print(f"- {atual.descricao}")
+            atual = atual.proxima
+
+# Exemplo de uso
+tarefas = ListaEncadeada()
+tarefas.adicionar_tarefa("Estudar para a prova")
+tarefas.adicionar_tarefa("Ir à academia")
+tarefas.adicionar_tarefa("Revisar código do projeto")
+
+tarefas.exibir_tarefas()
+
+tarefas.remover_tarefa("Ir à academia")
+print("\nApós remover uma tarefa:")
+tarefas.exibir_tarefas() 
